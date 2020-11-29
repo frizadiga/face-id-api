@@ -11,9 +11,9 @@ const { PORT } = require('./config');
 
 // Use Middlewares
 app.use(cors());
+app.use(body());
 app.use(router.routes());
 app.use(router.allowedMethods());
-app.use(body());
 
 const fnStart = () => {
   console.log(`App running on port: ${PORT}`);
@@ -21,3 +21,18 @@ const fnStart = () => {
 };
 
 app.listen(PORT, fnStart);
+
+app.on('error', (err) => {
+  /* centralized error handling:
+   *   console.log error
+   *   write error to log file
+   *   save error and request information to database if ctx.request match condition
+   *   ...
+  */
+  console.error('global error handler', err);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.log('unhandledRejection message:', err);
+  process.exit(1);
+});
