@@ -1,15 +1,23 @@
 const router = require('koa-router')();
+
 const HandleRoot = require('./handle-root');
+const HandleIsAuth = require('./handle-is-auth');
+const HandleCheckUser = require('./handle-check-user');
+const HandleSetLogin = require('./handle-set-login');
+const HandleSetLogout = require('./handle-set-logout');
+
 const HandleRequestRegister = require('./handle-request-register');
 const HandleRegister = require('./handle-register');
 const HandleLogin = require('./handle-login');
 const HandleLoginChallenge = require('./handle-login-challenge');
-const HandleCheckUser = require('./handle-check-user');
 
 router.get('/', HandleRoot);
 
 // Auth
+router.post('/is-auth', HandleIsAuth);
 router.post('/check-user', HandleCheckUser);
+router.post('/set-login', HandleSetLogin);
+router.post('/set-logout', HandleSetLogout);
 
 // Register Webauthn
 router.post('/request-register', HandleRequestRegister);

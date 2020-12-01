@@ -24,8 +24,6 @@ async function HandleCheckUser(ctx) {
 
     const { email, phone, password, otp_code } = requestBody;
 
-    console.log('now', { requestBody });
-
     if (phone) {
       findByParams = { phone };
       loginType = LOGIN_TYPE.PHONE;
