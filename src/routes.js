@@ -4,14 +4,18 @@ const HandleRequestRegister = require('./handle-request-register');
 const HandleRegister = require('./handle-register');
 const HandleLogin = require('./handle-login');
 const HandleLoginChallenge = require('./handle-login-challenge');
+const HandleCheckUser = require('./handle-check-user');
 
 router.get('/', HandleRoot);
 
-// Register routes
+// Auth
+router.post('/check-user', HandleCheckUser);
+
+// Register Webauthn
 router.post('/request-register', HandleRequestRegister);
 router.post('/register', HandleRegister);
 
-// Authenticate routes
+// Authenticate Webauthn
 router.post('/login', HandleLogin);
 router.post('/login-challenge', HandleLoginChallenge);
 

@@ -1,3 +1,5 @@
+const { SHOW_RES_DB } = require('./config');
+
 const OK_STRUCT = {
   status: 'ok',
   data: {},
@@ -12,7 +14,7 @@ function getResponseOk(params) {
     data: {
       ...data,
     },
-    x_res_db: responseDB,
+    x_res_db: SHOW_RES_DB ? responseDB : undefined,
   };
 }
 
