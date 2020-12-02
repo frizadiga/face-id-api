@@ -14,6 +14,8 @@ async function HandleRegister(ctx) {
 
   const { key = 'DUMMY_KEY', challenge = 'DUMMY_CHALLENGE' } = parseRegisterRequest(requestData);
 
+  console.log('now', { key, challenge, requestData });
+
   try {
     // Find one user by challenge
     const _challenge = challenge;
