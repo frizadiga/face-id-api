@@ -7,13 +7,14 @@ const modelFindOneUser = require('./model-user-find-one');
 async function HandleGenerateAttestationOptions(ctx) {
   const { request, response } = ctx;
   const requestData = request.query;
+  const userId = requestData.user_id;
 
-  const resUserData = await modelFindOneUser({ id: requestData.id });
+  const resUserData = await modelFindOneUser({ id: userId });
 
   const options = generateAttestationOptions({
     rpID: RELYING_PARTY_ID,
     rpName: RELYING_PARTY_NAME,
-    userID: requestData.user_id,
+    userID: userId,
     userName: requestData.full_name,
     timeout: 60000,
     attestationType: 'indirect',
@@ -38,7 +39,7 @@ async function HandleGenerateAttestationOptions(ctx) {
     },
   });
 
-  await modelUpdateUser(requestData.user_id, { current_challenge: options.challenge });
+  await modelUpdateUser(userId, { current_challenge: options.challenge });
 
   return response.body = options;
 }

@@ -7,7 +7,7 @@ const modelFindOneUser = require('./model-user-find-one');
 async function HandleVerifyAttestation(ctx) {
   const { request, response } = ctx;
   const requestData = request.body;
-  const credential = requestData.attResp;
+  const credential = requestData.attestation_response;
 
   let verification;
 

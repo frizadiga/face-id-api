@@ -7,8 +7,9 @@ const modelFindOneUser = require('./model-user-find-one');
 async function HandleGenerateAssertionOptions(ctx) {
   const { request, response } = ctx;
   const requestData = request.query;
+  const userId = requestData.user_id;
 
-  const resUserData = await modelFindOneUser({ id: requestData.id });
+  const resUserData = await modelFindOneUser({ id: userId });
 
   const options = generateAssertionOptions({
     timeout: 60000,
@@ -29,7 +30,7 @@ async function HandleGenerateAssertionOptions(ctx) {
    * The server needs to temporarily remember this value for verification, so don't lose it until
    * after you verify an authenticator response.
    */
-  await modelUpdateUser(requestData.user_id, { current_challenge: options.challenge });
+  await modelUpdateUser(userId, { current_challenge: options.challenge });
 
   return response.body = options;
 }
