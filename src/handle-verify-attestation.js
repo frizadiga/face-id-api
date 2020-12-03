@@ -1,7 +1,7 @@
 const { RELYING_PARTY_ID, EXPECTED_ORIGIN } = require('./config');
 const { verifyAttestationResponse } = require('@simplewebauthn/server');
 
-// const modelUpdateUser = require('./model-user-update');
+const modelUpdateUser = require('./model-user-update');
 const modelFindOneUser = require('./model-user-find-one');
 
 async function HandleVerifyAttestation(ctx) {
@@ -27,26 +27,29 @@ async function HandleVerifyAttestation(ctx) {
     return;
   }
 
-  const { verified /* authenticatorInfo */ } = verification;
+  const { verified, authenticatorInfo } = verification;
 
-  // if (verified && authenticatorInfo) {
-  //   const { base64PublicKey, base64CredentialID, counter } = authenticatorInfo;
+  if (verified && authenticatorInfo) {
+    const { base64PublicKey, base64CredentialID, counter } = authenticatorInfo;
 
-  //   const existingDevice = user.devices.find((device) => {
-  //     return device.credentialID === base64CredentialID;
-  //   });
+    const existingDevice = resUserData.devices.find((item) => {
+      return item.credentialID === base64CredentialID;
+    });
 
-  //   if (!existingDevice) {
-  //     /**
-  //      * Add the returned device to the user's list of devices
-  //      */
-  //     user.devices.push({
-  //       publicKey: base64PublicKey,
-  //       credentialID: base64CredentialID,
-  //       counter,
-  //     });
-  //   }
-  // }
+    if (!existingDevice) {
+      /**
+       * Add the returned device to the user's list of devices
+       */
+      const devicesToUpdate = {
+        publicKey: base64PublicKey,
+        credentialID: base64CredentialID,
+        counter,
+      };
+
+      const finalDevices = [...resUserData.devices, devicesToUpdate];
+      await modelUpdateUser(requestData.id, { devices: finalDevices });
+    }
+  }
 
   return response.body = { verified };
 }

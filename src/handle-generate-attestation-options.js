@@ -2,10 +2,13 @@ const { RELYING_PARTY_ID, RELYING_PARTY_NAME } = require('./config');
 const { generateAttestationOptions } = require('@simplewebauthn/server');
 
 const modelUpdateUser = require('./model-user-update');
+const modelFindOneUser = require('./model-user-find-one');
 
 async function HandleGenerateAttestationOptions(ctx) {
   const { request, response } = ctx;
   const requestData = request.query;
+
+  const resUserData = await modelFindOneUser({ id: requestData.id });
 
   const options = generateAttestationOptions({
     rpID: RELYING_PARTY_ID,
@@ -20,11 +23,11 @@ async function HandleGenerateAttestationOptions(ctx) {
      * the browser if it's asked to perform an attestation when one of these ID's already resides
      * on it.
      */
-    // excludeCredentials: devices.map(dev => ({
-    //   id: dev.credentialID,
-    //   type: 'public-key',
-    //   transports: ['usb', 'ble', 'nfc', 'internal'],
-    // })),
+    excludeCredentials: (resUserData?.devices || []).map(item => ({
+      id: item.credentialID,
+      type: 'public-key',
+      transports: ['usb', 'ble', 'nfc', 'internal'],
+    })),
     /**
      * The optional authenticatorSelection property allows for specifying more constraints around
      * the types of authenticators that users to can use for attestation
