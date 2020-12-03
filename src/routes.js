@@ -6,10 +6,8 @@ const HandleCheckUser = require('./handle-check-user');
 const HandleSetLogin = require('./handle-set-login');
 const HandleSetLogout = require('./handle-set-logout');
 
-const HandleRequestRegister = require('./handle-request-register');
-const HandleRegister = require('./handle-register');
-const HandleLogin = require('./handle-login');
-const HandleLoginChallenge = require('./handle-login-challenge');
+const HandleGenerateAttestationOptions = require('./handle-generate-attestation-options');
+const HandleVerifyAttestation = require('./handle-verify-attestation');
 
 router.get('/', HandleRoot);
 
@@ -19,12 +17,10 @@ router.post('/check-user', HandleCheckUser);
 router.post('/set-login', HandleSetLogin);
 router.post('/set-logout', HandleSetLogout);
 
-// Register Webauthn
-router.post('/request-register', HandleRequestRegister);
-router.post('/register', HandleRegister);
+// RegistWebauthn
+router.get('/generate-attestation-options', HandleGenerateAttestationOptions);
+router.post('/verify-attestation', HandleVerifyAttestation);
 
 // Authenticate Webauthn
-router.post('/login', HandleLogin);
-router.post('/login-challenge', HandleLoginChallenge);
 
 module.exports = router;
