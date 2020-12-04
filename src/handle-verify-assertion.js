@@ -53,8 +53,14 @@ async function HandleVerifyAssertion(ctx) {
     });
 
     const finalDevices = [...tempExcludeDevice, dbAuthenticator];
+    const setLoggedIn = () => verified === true;
 
-    await modelUpdateUser(requestData.id, { devices: finalDevices });
+    const dataToUpdate = {
+      devices: finalDevices,
+      is_logged_in: setLoggedIn(),
+    };
+
+    await modelUpdateUser(requestData.id, dataToUpdate);
   }
 
 
