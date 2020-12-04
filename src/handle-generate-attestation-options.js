@@ -15,7 +15,7 @@ async function HandleGenerateAttestationOptions(ctx) {
     rpID: RELYING_PARTY_ID,
     rpName: RELYING_PARTY_NAME,
     userID: userId,
-    userName: requestData.full_name,
+    userName: resUserData.full_name,
     timeout: 60000,
     attestationType: 'indirect',
     /**
