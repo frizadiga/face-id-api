@@ -7,7 +7,7 @@ const config = {
   API_URL: process.env.API_URL,
   DB_URL: process.env.DB_URL || 'https://frizadiga.xyz/face-id-db',
   EXPECTED_ORIGIN: process.env.EXPECTED_ORIGIN || 'http://localhost',
-  RELYING_PARTY_ID: process.env.RELYING_PARTY_NAME || 'localhost',
+  RELYING_PARTY_ID: process.env.RELYING_PARTY_ID || 'localhost',
   RELYING_PARTY_NAME: process.env.RELYING_PARTY_NAME || 'tokopedia',
   SHOW_RES_DB: process.env.SHOW_RES_DB.toLowerCase() === 'true',
 };
