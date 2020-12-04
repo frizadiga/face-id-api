@@ -10,6 +10,7 @@ const config = {
   RELYING_PARTY_ID: process.env.RELYING_PARTY_ID || 'localhost',
   RELYING_PARTY_NAME: process.env.RELYING_PARTY_NAME || 'tokopedia',
   SHOW_RES_DB: process.env.SHOW_RES_DB.toLowerCase() === 'true',
+  ATTESTATION_TYPE: process.env.ATTESTATION_TYPE || 'none',
 };
 
 const RESOURCE_USERS_ENDPOINT = `${config.DB_URL}/users`;

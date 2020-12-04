@@ -1,4 +1,4 @@
-const { RELYING_PARTY_ID, RELYING_PARTY_NAME } = require('./config');
+const { RELYING_PARTY_ID, RELYING_PARTY_NAME, ATTESTATION_TYPE } = require('./config');
 const { generateAttestationOptions } = require('@simplewebauthn/server');
 
 const modelUpdateUser = require('./model-user-update');
@@ -17,7 +17,7 @@ async function HandleGenerateAttestationOptions(ctx) {
     userID: userId,
     userName: resUserData.full_name,
     timeout: 60000,
-    attestationType: 'indirect',
+    attestationType: ATTESTATION_TYPE,
     /**
      * Passing in a user's list of already-registered authenticator IDs here prevents users from
      * registering the same device multiple times. The authenticator will simply throw an error in
