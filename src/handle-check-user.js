@@ -22,7 +22,8 @@ async function HandleCheckUser(ctx) {
     let findByParams = {};
     let loginType = '';
 
-    const { email, phone, password, otp_code } = requestBody;
+    const { phone, password, otp_code } = requestBody;
+    const email = requestBody?.email?.toLowerCase() || '';
 
     if (phone) {
       findByParams = { phone };

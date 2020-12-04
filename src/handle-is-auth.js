@@ -11,7 +11,7 @@ async function HandleIsAuth(ctx) {
   const requestBody = request.body;
 
   try {
-    // Find user by email | phone | password
+    // Find user by userId
     const findByParams = { id: requestBody.id };
 
     const resFindUser = await findOneUser(findByParams);
